@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IronClaw - Adversary Emulation Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="logo">⚔️ IronClaw <span>Adversary Emulation & Active Defense</span></div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <span class="mode-indicator mode-purple" id="modeIndicator">⚡ COMBAT MODE</span>
+            <span class="badge-status badge-green" id="statusBadge">● Online</span>
+            <div class="mode-toggle">
+                <button class="mode-btn red" data-mode="red">🔴 Red</button>
+                <button class="mode-btn blue" data-mode="blue">🔵 Blue</button>
+                <button class="mode-btn purple active" data-mode="purple">🟣 Both</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats-grid" id="statsGrid">
+        <div class="stat-card red">
+            <div class="number" id="attacksDeployed">0</div>
+            <div class="label">⚔️ Attacks</div>
+        </div>
+        <div class="stat-card blue">
+            <div class="number" id="defensesActive">0</div>
+            <div class="label">🛡️ Defenses</div>
+        </div>
+        <div class="stat-card yellow">
+            <div class="number" id="threatsDetected">0</div>
+            <div class="label">🎯 Threats</div>
+        </div>
+        <div class="stat-card green">
+            <div class="number" id="incidentsResolved">0</div>
+            <div class="label">✅ Resolved</div>
+        </div>
+        <div class="stat-card purple">
+            <div class="number" id="honeypotsActive">0</div>
+            <div class="label">🍯 Honeypots</div>
+        </div>
+        <div class="stat-card red">
+            <div class="number" id="compromisedAssets">0</div>
+            <div class="label">💀 Compromised</div>
+        </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="main-grid">
+        <div class="panel">
+            <div class="header">
+                <h3>📋 Live Event Feed</h3>
+                <div class="actions">
+                    <button class="btn btn-sm btn-secondary" onclick="clearEvents()">Clear</button>
+                    <button class="btn btn-sm btn-purple" onclick="simulateEvent()">⚡ Test</button>
+                </div>
+            </div>
+            <div class="event-list" id="eventList">
+                <div class="empty-state"><div class="icon">📡</div><div>No events yet.</div></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="header">
+                <h3>🎯 Active Campaigns</h3>
+                <div class="actions">
+                    <button class="btn btn-sm btn-red" onclick="deployAttack()">+ Attack</button>
+                    <button class="btn btn-sm btn-blue" onclick="deployDefense()">+ Defense</button>
+                </div>
+            </div>
+            <div class="campaign-grid" id="campaignList">
+                <div class="empty-state"><div class="icon">🚀</div><div>No active campaigns.</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px;">
+        <button class="btn btn-red" onclick="deployPhishing()">📧 Phishing</button>
+        <button class="btn btn-red" onclick="deployRansomware()">💀 Ransomware</button>
+        <button class="btn btn-blue" onclick="deployHoneypot()">🍯 Honeypot</button>
+        <button class="btn btn-blue" onclick="runScanner()">🔍 Scan</button>
+        <button class="btn btn-purple" onclick="deployDeception()">🎭 Deception</button>
+        <button class="btn btn-green" onclick="autoRespond()">⚡ Auto-Respond</button>
+    </div>
+
+    <!-- Config -->
+    <div class="config-section">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <h3 style="font-size:14px;font-weight:600;color:#e2e8f0;">⚙️ Configuration</h3>
+            <button class="btn btn-sm btn-green" onclick="saveConfig()">💾 Save</button>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Target Domain</label>
+                <input type="text" id="targetDomain" placeholder="example.com" value="target-company.com">
+            </div>
+            <div class="form-group">
+                <label>Auto-Response</label>
+                <select id="autoResponse">
+                    <option value="notify">📢 Notify Only</option>
+                    <option value="block" selected>🚫 Block & Notify</option>
+                    <option value="isolate">🔒 Isolate & Notify</option>
+                    <option value="neutralize">💀 Neutralize</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Telegram Bot Token</label>
+                <input type="text" id="telegramToken" placeholder="Bot token">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Telegram Chat ID</label>
+                <input type="text" id="telegramChatId" placeholder="Chat ID">
+            </div>
+            <div class="form-group">
+                <label>Alert Email</label>
+                <input type="email" id="alertEmail" placeholder="admin@company.com">
+            </div>
+            <div class="form-group">
+                <label>SMTP Server</label>
+                <input type="text" id="smtpServer" placeholder="smtp.gmail.com:587">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        IronClaw v3.0 • Dual-Mode Adversary Emulation • For authorized security testing only
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+    <div id="toastMessage">Operation deployed</div>
+</div>
+
+<script src="app.js"></script>
+</body>
+  </html>

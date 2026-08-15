@@ -2,7 +2,7 @@ services:
   - type: web
     name: ironclaw-backend
     runtime: python
-    repo: https://github.com/feranmiabiola1002/ironclaw-backend
+    repo: https://github.com/feranmiabiola1002/Ironicrawl-backend
     branch: main
     plan: free
     envVars:

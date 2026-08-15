@@ -1,7 +1,4 @@
-# render.yaml - Blueprint for one-click deployment on Render
-
 services:
-  # ─── BACKEND WEB SERVICE ──────────────────────────────────
   - type: web
     name: ironclaw-backend
     runtime: python
@@ -15,9 +12,7 @@ services:
         value: INFO
       - key: PYTHON_VERSION
         value: 3.11.0
-    buildCommand: |
-      pip install -r requirements.txt
-    startCommand: |
-      gunicorn backend:app -k eventlet -w 1
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn backend:app -k eventlet -w 1
     healthCheckPath: /
     autoDeploy: true

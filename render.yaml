@@ -1,0 +1,43 @@
+# render.yaml - Blueprint for one-click deployment on Render
+
+services:
+  # ─── BACKEND WEB SERVICE ──────────────────────────────────
+  - type: web
+    name: ironclaw-backend
+    runtime: python
+    repo: https://github.com/your-username/ironclaw
+    branch: main
+    plan: free
+    envVars:
+      - key: FLASK_SECRET_KEY
+        generateValue: true
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    buildCommand: |
+      pip install -r requirements.txt
+    startCommand: |
+      gunicorn backend:app -k eventlet -w 1
+    healthCheckPath: /
+    autoDeploy: true
+
+  # ─── FRONTEND STATIC SITE ─────────────────────────────────
+  - type: static
+    name: ironclaw-frontend
+    repo: https://github.com/your-username/ironclaw
+    branch: main
+    buildCommand: |
+      # No build needed for static files
+      echo "Static site ready"
+    publishPath: ./frontend
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://ironclaw-backend.onrender.com/api
+      - key: VITE_WS_URL
+        value: wss://ironclaw-backend.onrender.com
+    autoDeploy: true

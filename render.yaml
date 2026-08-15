@@ -5,7 +5,7 @@ services:
   - type: web
     name: ironclaw-backend
     runtime: python
-    repo: https://github.com/your-username/ironclaw
+    repo: https://github.com/feranmiabiola1002/ironclaw
     branch: main
     plan: free
     envVars:
@@ -25,19 +25,13 @@ services:
   # ─── FRONTEND STATIC SITE ─────────────────────────────────
   - type: static
     name: ironclaw-frontend
-    repo: https://github.com/your-username/ironclaw
+    repo: https://github.com/feranmiabiola1002/ironclaw
     branch: main
     buildCommand: |
-      # No build needed for static files
       echo "Static site ready"
     publishPath: ./frontend
     routes:
       - type: rewrite
         source: /*
         destination: /index.html
-    envVars:
-      - key: VITE_API_URL
-        value: https://ironclaw-backend.onrender.com/api
-      - key: VITE_WS_URL
-        value: wss://ironclaw-backend.onrender.com
     autoDeploy: true
